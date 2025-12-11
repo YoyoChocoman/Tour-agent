@@ -1,0 +1,14 @@
+venv/
+.venv/
+env/
+
+openwebui_data/
+
+__pycache__/
+*.py[cod]
+
+.env
+
+.vscode/
+
+.DS_Store
