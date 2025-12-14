@@ -4,6 +4,7 @@ from app.utils.token_access import check_access_token
 
 def get_scenic_spot(city: str) -> Dict[str, Any]:
     try:
+        print(f"Fetching tourism info in {city}...")
         url = f"https://tdx.transportdata.tw/api/basic/v2/Tourism/ScenicSpot/{city}"
         headers = {
             'authorization': 'Bearer ' + check_access_token(),
@@ -12,7 +13,7 @@ def get_scenic_spot(city: str) -> Dict[str, Any]:
         response = requests.get(url, headers=headers)
 
         if response.status_code != 200:
-            return {"error": f"Failed to fetch weather data.\
+            return {"error": f"Failed to fetch tourism info.\
                     Status code: {response.status_code}"}
 
         data = response.json()

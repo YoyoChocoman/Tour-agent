@@ -26,7 +26,7 @@ def get_access_token() -> str:
         response.raise_for_status()
 
         data = response.json()
-        new_token = response["access_token"]
+        new_token = data["access_token"]
         expire = now + 86400
 
         set_key(".env", "ACCESS_TOKEN", new_token)
