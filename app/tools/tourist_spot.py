@@ -1,10 +1,12 @@
 import requests
 from typing import Dict, Any
 from app.utils.token_access import check_access_token
+from app.utils.city_converter import convert_format
 
-def get_scenic_spot(city: str) -> Dict[str, Any]:
+def get_tourist_spot(city_input: str, query: str = None, max: int = 10) -> Dict[str, Any]:
     try:
-        print(f"Fetching tourism info in {city}...")
+        city = convert_format(city_input)
+        print(f"Fetching tourist spot info in {city} with query = '{query}'...")
         url = f"https://tdx.transportdata.tw/api/basic/v2/Tourism/ScenicSpot/{city}"
         headers = {
             'authorization': 'Bearer ' + check_access_token(),

@@ -1,6 +1,5 @@
 import requests
 import time
-import os
 from dotenv import set_key
 from app.core.config import settings
 

@@ -26,18 +26,18 @@ class Tools:
 
         try:
             response = requests.post(f"{self.api_url}/get_weather", json=payload)
-            response.raise_for_status()  # 檢查有沒有 404 或 500 錯誤
+            response.raise_for_status()
 
             return json.dumps(response.json(), ensure_ascii=False)
 
         except Exception as e:
             return f"Error connecting to weather tool: {e}"
 
-    def get_tourism(self, city: str) -> str:
+    def get_tourist_spot(self, city: str) -> str:
         """
         Get detailed information on tourist spots within a city.
 
-        :param city: The target city name.
+        :param city: The name of the city to query (e.g., Taipei, Kaohsiung).
         :return: Raw data of tourist spots in JSON format.
 
         [IMPORTANT]
@@ -47,13 +47,34 @@ class Tools:
         3. Curate a personalized list of spots that specifically fit the user's profile.
         4. Ignore spots that are irrelevant to the user's stated preferences.
         """
-        payload = {"arguments": {"city": city}}
+        payload = {"arguments": {"city_input": city}}
 
         try:
-            response = requests.post(f"{self.api_url}/get_tourism", json=payload)
+            response = requests.post(f"{self.api_url}/get_tourist_spot", json=payload)
             response.raise_for_status()
 
             return json.dumps(response.json(), ensure_ascii=False)
 
         except Exception as e:
-            return f"Error connecting to tourism tool: {e}"
+            return f"Error connecting to tourist spot tool: {e}"
+
+    def get_hotel(self, city: str) -> str:
+        """
+        Get information on hotels within a city
+
+        :param city: The name of the city to query (e.g., Taipei, Kaohsiung).
+        :return: Raw data of hotels' information in JSON format.
+
+        [IMPORTANT]
+        List out ALL the information that the user might be interested in.
+        """
+        payload = {"arguments": {"city_input": city}}
+
+        try:
+            response = requests.post(f"{self.api_url}/get_hotel", json=payload)
+            response.raise_for_status()
+
+            return json.dumps(response.json(), ensure_ascii=False)
+
+        except Exception as e:
+            return f"Error connecting to hotel tool: {e}"
