@@ -78,3 +78,24 @@ class Tools:
 
         except Exception as e:
             return f"Error connecting to hotel tool: {e}"
+
+    def get_restaurant(self, city: str) -> str:
+        """
+        Get information on restaurants within a city
+
+        :param city: The name of the city to query (e.g., Taipei, Kaohsiung).
+        :return: Raw data of hotels' information in JSON format.
+
+        [IMPORTANT]
+        List out ALL the information that the user might be interested in.
+        """
+        payload = {"arguments": {"city_input": city}}
+
+        try:
+            response = requests.post(f"{self.api_url}/get_restaurant", json=payload)
+            response.raise_for_status()
+
+            return json.dumps(response.json(), ensure_ascii=False)
+
+        except Exception as e:
+            return f"Error connecting to restaurant tool: {e}"
