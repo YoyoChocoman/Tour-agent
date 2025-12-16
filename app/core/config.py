@@ -5,6 +5,7 @@ class Settings(BaseSettings):
     EXPIRE_TIME: float | None = None
     CLIENT_ID: str
     CLIENT_SECRET: str
+    DB_PATH: str = "tour_agent.db"
 
     class Config:
         env_file = ".env"

@@ -38,9 +38,11 @@ class Tools:
         Get detailed information on tourist spots within a city.
 
         :param city: The name of the city to query (e.g., Taipei, Kaohsiung).
-        :return: Raw data of tourist spots in JSON format.
+        :return: A JSON string containing a list of restaurants.
+                 Each item includes name, description, address, phone, etc.
 
         [IMPORTANT]
+        The return data is a LIST of objects.
         Act as a professional travel planner.
         1. Read the user's request to identify their specific interests (e.g., "I like quiet places" or "I love food").
         2. Parse the returned JSON data.
@@ -63,9 +65,11 @@ class Tools:
         Get information on hotels within a city
 
         :param city: The name of the city to query (e.g., Taipei, Kaohsiung).
-        :return: Raw data of hotels' information in JSON format.
+        :return: A JSON string containing a list of hotels.
+                 Each item includes name, description, address, phone, etc.
 
         [IMPORTANT]
+        The return data is a LIST of objects.
         List out ALL the information that the user might be interested in.
         """
         payload = {"arguments": {"city_input": city}}
@@ -81,13 +85,14 @@ class Tools:
 
     def get_restaurant(self, city: str) -> str:
         """
-        Get information on restaurants within a city
+        Get information on restaurants within a city.
 
         :param city: The name of the city to query (e.g., Taipei, Kaohsiung).
-        :return: Raw data of hotels' information in JSON format.
+        :return: A JSON string containing a list of restaurants.
+                 Each item includes name, description, address, phone, etc.
 
         [IMPORTANT]
-        List out ALL the information that the user might be interested in.
+        The return data is a LIST of objects.
         """
         payload = {"arguments": {"city_input": city}}
 

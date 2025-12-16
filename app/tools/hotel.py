@@ -1,11 +1,20 @@
 import requests
-from typing import Dict, Any
 from app.utils.token_access import check_access_token
 from app.utils.city_converter import convert_format
+from app.core.database import TourDB
 
-def get_hotel(city_input: str) -> Dict[str, Any]:
+db = TourDB()
+
+def get_hotel(city_input: str):
+    city = convert_format(city_input)
+    print(f"Searching hotel info in {city}...")
+    local_data = db.get_db(city, "Hotel")
+
+    if len(local_data) > 0:
+        print("Local data found!")
+        return local_data
+
     try:
-        city = convert_format(city_input)
         print(f"Fetching hotel info in {city}...")
         url = f"https://tdx.transportdata.tw/api/basic/v2/Tourism/Hotel/{city}"
         headers = {
@@ -19,22 +28,12 @@ def get_hotel(city_input: str) -> Dict[str, Any]:
                     Status code: {response.status_code}"}
 
         data = response.json()
-        all_hotels = {}
-        for hotel in data:
-            hotel_info = {
-                "name": hotel.get("HotelName", "None"),
-                "description": hotel.get("Description", "None"),
-                "address": hotel.get("Address", "None"),
-                "phone": hotel.get("Phone", "None"),
-                "picture": hotel.get("Picture", {}),
-                "grade": hotel.get("Grade", "None"),
-                "position": hotel.get("Position", {}),
-                "label": hotel.get("Class", "None"),
-                "website": hotel.get("WebsiteUrl", "None"),
-                "service": hotel.get("ServiceInfo", "None")
-            }
-            all_hotels[hotel_info["name"]] = hotel_info
-        return all_hotels
+
+        print("New data fetched! Writing into DB...")
+        for item in data:
+            db.upsert(city, "Hotel", item)
+
+        return data
 
     except Exception as e:
         return {"error": str(e)}

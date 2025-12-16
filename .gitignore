@@ -4,6 +4,8 @@ env/
 
 openwebui_data/
 
+*.db
+
 __pycache__/
 *.py[cod]
 
