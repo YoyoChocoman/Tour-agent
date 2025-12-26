@@ -2,7 +2,7 @@ from jinja2 import Environment, FileSystemLoader
 from app.core.config import settings
 from app.core.schemas import TripPlan
 
-class ReportService:
+class Report:
     def __init__(self):
         self.env = Environment(loader=FileSystemLoader(settings.TEMPLATE_DIR))
 

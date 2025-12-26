@@ -1,16 +1,20 @@
 import base64
-from app.services.report import ReportService
+from app.services.report import Report
 from app.core.schemas import TripPlan
 
 class ExportTool:
     def __init__(self):
-        self.report_service = ReportService()
+        self.report = Report()
 
-    def generate_itinerary_link(self, itinerary_data: dict) -> str:
+    def form_itny_link(self, title: str, days: list) -> str:
         try:
-            plan = TripPlan(**itinerary_data)
-            html_content = self.report_service.generate_html(plan)
-            b64_html = base64.b64encode(html_content.encode('utf-8')).decode('utf-8')
+            itny_data = {
+                "title": title,
+                "days": days
+            }
+            plan = TripPlan(**itny_data)
+            content = self.report.generate_html(plan)
+            b64_html = base64.b64encode(content.encode('utf-8')).decode('utf-8')
             data_uri = f"data:text/html;charset=utf-8;base64,{b64_html}"
 
             return f"""
