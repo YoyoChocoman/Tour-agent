@@ -16,7 +16,6 @@ async def execute(tool_name: str, payload: Dict[str, Any] = Body(...)):
         args = payload.get("arguments", {})
 
         result = tool(**args)
-        print(f"DEBUG: Returning response for '{tool_name}':  {"result": result}")
         return {"result": result}
 
     except Exception as e:

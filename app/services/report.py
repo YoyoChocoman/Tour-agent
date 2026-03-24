@@ -25,4 +25,4 @@ class Report:
         with open(file_path, "w", encoding="utf-8") as f:
             f.write(html_content)
 
-        return f"{self.base_url}/downloads/{filename}"
+        return f"http://localhost:8000/downloads/{filename}"

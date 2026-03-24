@@ -6,13 +6,16 @@ class ExportTool:
         self.report = Report()
 
     def form_itny_link(self, title: str, days: list) -> str:
+        print("Start forming itinerary...")
         try:
             itny_data = {
                 "title": title,
                 "days": days
             }
             plan = TripPlan(**itny_data)
+            print("Forming...")
             data_url = self.report.generate_html(plan)
+            print("Successfully formed!")
 
             return f"Document formed sucessfully at backend. [click to download {title}]({data_url})"
 
