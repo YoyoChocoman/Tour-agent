@@ -1,10 +1,13 @@
 from fastapi import FastAPI, Body
+from fastapi.staticfiles import StaticFiles
 from typing import Dict, Any
 import uvicorn
 
 from app.tools import TOOL_RESISTRY
+from app.core.config import settings
 
 app = FastAPI()
+app.mount("/downloads", StaticFiles(directory=settings.OUTPUT_DIR), name="downloads")
 
 @app.post("/tools/{tool_name}")
 async def execute(tool_name: str, payload: Dict[str, Any] = Body(...)):

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }} - 行程表{% endblock %}
+
+{% block content %}
+    <h1 class="text-center text-primary mb-4">{{ title }}</h1>
+
+    {% for day_plan in days %}
+        <div class="day-section mb-4">
+            <h3 class="border-bottom pb-2">Day {{ day_plan.day }}</h3>
+            <ul class="list-group list-group-flush mt-3">
+                {% for spot in day_plan.spots %}
+                    <li class="list-group-item">
+                        <span class="badge bg-secondary">{{ spot.time }}</span>
+                        <span class="badge bg-info text-dark ms-1">{{ spot.category }}</span>
+                        <strong class="ms-2" style="font-size: 1.1em;">{{ spot.name }}</strong>
+                        <p class="text-muted mt-2 mb-0" style="font-size: 0.9em;">
+                            {{ spot.desc }}
+                        </p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+{% endblock %}
