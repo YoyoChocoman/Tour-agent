@@ -9,6 +9,7 @@ class Settings(BaseSettings):
     DB_PATH: str = "tour_agent.db"
     APP_DIR: str = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     TEMPLATE_DIR: str = os.path.join(APP_DIR, "templates")
+    OUTPUT_DIR: str = os.path.join(APP_DIR, "outputs")
 
     class Config:
         env_file = ".env"
